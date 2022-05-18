@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2022 All Rights Reserved, Quang Chien Pham.
+ */
 package com.example.spotifyclone
 
 import androidx.appcompat.app.AppCompatActivity
