@@ -3,9 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_baseline_error_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_image.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_play.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_spotify_logo.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/splash_screen.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18723994452149792" />
+        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.12239583333333333" />
       </map>
     </option>
   </component>

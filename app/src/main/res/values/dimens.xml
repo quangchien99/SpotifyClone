@@ -4,4 +4,6 @@
     <dimen name="width_56dp">56dp</dimen>
     <dimen name="height_56dp">56dp</dimen>
     <dimen name="width_0dp">0dp</dimen>
+    <dimen name="width_300dp">300dp</dimen>
+    <dimen name="height_200dp">200dp</dimen>
 </resources>
