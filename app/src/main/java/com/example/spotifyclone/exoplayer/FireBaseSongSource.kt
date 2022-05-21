@@ -30,7 +30,7 @@ class FireBaseSongSource @Inject constructor(
     private val songDatabase: SongDatabase
 ) {
 
-    private var songs = emptyList<MediaMetadataCompat>()
+    var songs = emptyList<MediaMetadataCompat>()
 
     suspend fun fetchMediaData() = withContext(Dispatchers.IO) {
         state = State.STATE_INITIALIZING
