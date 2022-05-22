@@ -8,6 +8,8 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_music.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_play.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_previous.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_skip.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_spotify_logo.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/splash_screen.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18723994452149792" />
