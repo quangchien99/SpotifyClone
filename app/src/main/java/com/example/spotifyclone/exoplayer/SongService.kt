@@ -14,6 +14,7 @@ import androidx.media.MediaBrowserServiceCompat
 import com.example.spotifyclone.exoplayer.callbacks.SongPlaybackPreparer
 import com.example.spotifyclone.exoplayer.callbacks.SongPlayerEventListener
 import com.example.spotifyclone.exoplayer.callbacks.SongPlayerNotificationListener
+import com.example.spotifyclone.logger.Logger
 import com.example.spotifyclone.utils.Constants.MEDIA_ROOT_ID
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.Player
@@ -74,6 +75,7 @@ class SongService : MediaBrowserServiceCompat() {
         super.onCreate()
 
         serviceScope.launch {
+            Logger.d("Fetching data ...")
             fireBaseSongSource.fetchMediaData()
         }
 
@@ -127,6 +129,7 @@ class SongService : MediaBrowserServiceCompat() {
         songToPlay: MediaMetadataCompat?,
         playNow: Boolean
     ) {
+        Logger.d("Prepare player")
         val currentSongIndex = if (currentPlayingSong == null) {
             0
         } else {
@@ -146,6 +149,7 @@ class SongService : MediaBrowserServiceCompat() {
 
     override fun onDestroy() {
         super.onDestroy()
+        Logger.d("Release resource")
         serviceScope.cancel()
         exoPlayer.removeListener(songPlayerEventListener)
         exoPlayer.release()
