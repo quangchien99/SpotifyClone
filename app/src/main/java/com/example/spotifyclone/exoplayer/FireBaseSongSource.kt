@@ -18,6 +18,7 @@ import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_MEDIA_URI
 import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_TITLE
 import androidx.core.net.toUri
 import com.example.spotifyclone.data.remote.SongDatabase
+import com.example.spotifyclone.logger.Logger
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
@@ -33,9 +34,10 @@ class FireBaseSongSource @Inject constructor(
     var songs = emptyList<MediaMetadataCompat>()
 
     suspend fun fetchMediaData() = withContext(Dispatchers.IO) {
+        Logger.d("Fetch media data from server")
         state = State.STATE_INITIALIZING
         val allSongs = songDatabase.getAllSongs()
-
+        Logger.d("The number of songs is: ${allSongs.size}")
         songs = allSongs.map { song ->
             MediaMetadataCompat.Builder()
                 .putLong(METADATA_KEY_MEDIA_ID, song.songId)
@@ -55,6 +57,7 @@ class FireBaseSongSource @Inject constructor(
     }
 
     fun convertToMediaSource(dataSourceFactory: DefaultDataSource.Factory): ConcatenatingMediaSource {
+        Logger.d("convertToMediaSource")
         val concatenatingMediaSource = ConcatenatingMediaSource()
         songs.forEach { song ->
             val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
@@ -77,7 +80,9 @@ class FireBaseSongSource @Inject constructor(
             .setIconUri(song.description.iconUri)
             .build()
         MediaBrowserCompat.MediaItem(desc, FLAG_PLAYABLE)
-    }.toMutableList()
+    }.toMutableList().also {
+        Logger.d("convertToMediaItem ${it.size}")
+    }
 
     private val onReadyListeners = mutableListOf<(Boolean) -> Unit>()
 

@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.spotifyclone.R
+import com.example.spotifyclone.logger.Logger
 import com.example.spotifyclone.utils.Constants.NOTIFICATION_CHANNEL_ID
 import com.example.spotifyclone.utils.Constants.NOTIFICATION_ID
 import com.google.android.exoplayer2.Player
@@ -27,6 +28,7 @@ class SongNotificationManager(
     private val notificationManager: PlayerNotificationManager
 
     init {
+        Logger.d("init SongNotificationManager")
         val mediaController = MediaControllerCompat(context, sessionToken)
         notificationManager = PlayerNotificationManager.Builder(
             context,
@@ -46,6 +48,7 @@ class SongNotificationManager(
     }
 
     fun showNotification(player: Player) {
+        Logger.d("Show Notification")
         notificationManager.setPlayer(player)
     }
 
@@ -54,7 +57,9 @@ class SongNotificationManager(
     ) : PlayerNotificationManager.MediaDescriptionAdapter {
 
         override fun getCurrentContentTitle(player: Player): CharSequence {
-            return mediaController.metadata.description.title.toString()
+            return mediaController.metadata.description.title.toString().also {
+                Logger.d("Current Content Title: $it")
+            }
         }
 
         override fun createCurrentContentIntent(player: Player): PendingIntent? {
@@ -62,7 +67,9 @@ class SongNotificationManager(
         }
 
         override fun getCurrentContentText(player: Player): CharSequence? {
-            return mediaController.metadata.description.subtitle.toString()
+            return mediaController.metadata.description.subtitle.toString().also {
+                Logger.d("Current Content Text: $it")
+            }
         }
 
         override fun getCurrentLargeIcon(

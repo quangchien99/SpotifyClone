@@ -7,6 +7,7 @@ import android.app.Notification
 import android.content.Intent
 import androidx.core.content.ContextCompat
 import com.example.spotifyclone.exoplayer.SongService
+import com.example.spotifyclone.logger.Logger
 import com.example.spotifyclone.utils.Constants.NOTIFICATION_ID
 import com.google.android.exoplayer2.ui.PlayerNotificationManager
 
@@ -16,6 +17,7 @@ class SongPlayerNotificationListener(
 
     override fun onNotificationCancelled(notificationId: Int, dismissedByUser: Boolean) {
         super.onNotificationCancelled(notificationId, dismissedByUser)
+        Logger.d("NotificationCancelled")
         songService.apply {
             stopForeground(true)
             isForeGroundService = false
@@ -29,6 +31,7 @@ class SongPlayerNotificationListener(
         ongoing: Boolean
     ) {
         super.onNotificationPosted(notificationId, notification, ongoing)
+        Logger.d("NotificationPosted")
         songService.apply {
             if (ongoing && !isForeGroundService) {
                 ContextCompat.startForegroundService(
