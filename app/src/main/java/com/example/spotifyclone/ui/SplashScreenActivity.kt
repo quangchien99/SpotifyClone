@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2022 All Rights Reserved, Quang Chien Pham.
  */
-package com.example.spotifyclone
+package com.example.spotifyclone.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.example.spotifyclone.R
 
 
 @SuppressLint("CustomSplashScreen")

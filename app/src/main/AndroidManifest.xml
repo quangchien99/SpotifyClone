@@ -11,12 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpotifyClone">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true">
         </activity>
 
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".ui.SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true">
             <intent-filter>
