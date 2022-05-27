@@ -79,7 +79,6 @@ class SongService : MediaBrowserServiceCompat() {
             Logger.d("Fetching data ...")
             fireBaseSongSource.fetchMediaData()
         }
-
         val activityIntent = packageManager?.getLaunchIntentForPackage(packageName)?.let {
             PendingIntent.getActivity(this, 0, it, 0)
         }
@@ -88,6 +87,7 @@ class SongService : MediaBrowserServiceCompat() {
             setSessionActivity(activityIntent)
             isActive = true
         }
+
         sessionToken = mediaSession.sessionToken
 
         songNotificationManager = SongNotificationManager(

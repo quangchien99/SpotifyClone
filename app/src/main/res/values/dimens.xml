@@ -6,4 +6,10 @@
     <dimen name="width_0dp">0dp</dimen>
     <dimen name="width_300dp">300dp</dimen>
     <dimen name="height_200dp">200dp</dimen>
+    <dimen name="width_75dp">75dp</dimen>
+    <dimen name="height_75dp">75dp</dimen>
+    <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="text_size_20sp">20sp</dimen>
+    <dimen name="text_size_14sp">14sp</dimen>
 </resources>

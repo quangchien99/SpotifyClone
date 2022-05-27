@@ -2,4 +2,6 @@
     <string name="app_name">SpotifyClone</string>
     <string name="notification_channel_name">Spotify Channel</string>
     <string name="notification_channel_description">Playing music…</string>
+    <string name="default_song_name">Default song name</string>
+    <string name="default_song_author">Default song author</string>
 </resources>

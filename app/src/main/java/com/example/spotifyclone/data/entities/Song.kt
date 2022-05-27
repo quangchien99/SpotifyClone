@@ -4,7 +4,7 @@
 package com.example.spotifyclone.data.entities
 
 data class Song(
-    val songId: Long = 0,
+    val songId: String = "",
     val title: String = "",
     val author: String = "",
     val songUrl: String = "",

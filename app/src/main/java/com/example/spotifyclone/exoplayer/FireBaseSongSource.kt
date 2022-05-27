@@ -33,14 +33,19 @@ class FireBaseSongSource @Inject constructor(
 
     var songs = emptyList<MediaMetadataCompat>()
 
-    suspend fun fetchMediaData() = withContext(Dispatchers.IO) {
+    suspend fun fetchMediaData() {
         Logger.d("Fetch media data from server")
         state = State.STATE_INITIALIZING
+        getAllSongs()
+        state = State.STATE_INITIALIZED
+    }
+
+    private suspend fun getAllSongs() = withContext(Dispatchers.IO){
         val allSongs = songDatabase.getAllSongs()
         Logger.d("The number of songs is: ${allSongs.size}")
         songs = allSongs.map { song ->
             MediaMetadataCompat.Builder()
-                .putLong(METADATA_KEY_MEDIA_ID, song.songId)
+                .putString(METADATA_KEY_MEDIA_ID, song.songId)
                 .putString(METADATA_KEY_ARTIST, song.author)
                 .putString(METADATA_KEY_TITLE, song.title)
                 .putString(METADATA_KEY_DISPLAY_TITLE, song.title)
@@ -52,8 +57,6 @@ class FireBaseSongSource @Inject constructor(
                 .build()
 
         }
-
-        state == State.STATE_INITIALIZED
     }
 
     fun convertToMediaSource(dataSourceFactory: DefaultDataSource.Factory): ConcatenatingMediaSource {

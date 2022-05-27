@@ -23,8 +23,8 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val songServiceConnection: SongServiceConnection
 ) : ViewModel() {
-    private val _mediaItem = MutableLiveData<Resource<List<Song>>>()
-    val mediaItem: LiveData<Resource<List<Song>>> = _mediaItem
+    private val _mediaItems = MutableLiveData<Resource<List<Song>>>()
+    val mediaItems: LiveData<Resource<List<Song>>> = _mediaItems
 
     val isConnected = songServiceConnection.isConnected
     val networkError = songServiceConnection.networkError
@@ -33,7 +33,7 @@ class MainViewModel @Inject constructor(
 
     init {
         Logger.d("Init MainViewModel")
-        _mediaItem.postValue(Resource.loading(null))
+        _mediaItems.postValue(Resource.loading(null))
         songServiceConnection.subscribe(
             MEDIA_ROOT_ID,
             object : MediaBrowserCompat.SubscriptionCallback() {
@@ -45,14 +45,14 @@ class MainViewModel @Inject constructor(
                     super.onChildrenLoaded(parentId, children)
                     val items = children.map {
                         Song(
-                            songId = it.mediaId?.toLongOrNull() ?: 0L,
+                            songId = it.mediaId.toString(),
                             title = it.description.title.toString(),
                             author = it.description.subtitle.toString(),
                             songUrl = it.description.mediaUri.toString(),
                             imageUrl = it.description.iconUri.toString()
                         )
                     }
-                    _mediaItem.postValue(Resource.success(items))
+                    _mediaItems.postValue(Resource.success(items))
                 }
 
             })
@@ -76,9 +76,7 @@ class MainViewModel @Inject constructor(
     fun playOrToggleSong(song: Song, toggle: Boolean = false) {
         Logger.d("playOrToggleSong: song: $song - toggle: $toggle")
         val isPrepare = playbackState.value?.isPrepare ?: false
-        if (isPrepare && song.songId == currentPlayingSong.value?.getString(METADATA_KEY_MEDIA_ID)
-                ?.toLongOrNull()
-        ) {
+        if (isPrepare && song.songId == currentPlayingSong.value?.getString(METADATA_KEY_MEDIA_ID)) {
             playbackState.value?.let { playbackState ->
                 when {
                     playbackState.isPlaying -> if (toggle) songServiceConnection.transportControls.pause()
