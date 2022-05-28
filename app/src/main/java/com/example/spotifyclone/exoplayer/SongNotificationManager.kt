@@ -66,7 +66,7 @@ class SongNotificationManager(
             return mediaController.sessionActivity
         }
 
-        override fun getCurrentContentText(player: Player): CharSequence? {
+        override fun getCurrentContentText(player: Player): CharSequence {
             return mediaController.metadata.description.subtitle.toString().also {
                 Logger.d("Current Content Text: $it")
             }

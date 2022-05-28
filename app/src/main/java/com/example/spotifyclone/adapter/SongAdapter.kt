@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.example.spotifyclone.R
 import com.example.spotifyclone.data.entities.Song
+import com.example.spotifyclone.logger.Logger
 import kotlinx.android.synthetic.main.item_song.view.*
 import javax.inject.Inject
 
@@ -63,10 +64,12 @@ class SongAdapter @Inject constructor(
     private var onItemClickListener: ((Song) -> Unit)? = null
 
     fun setOnItemClickListener(listener: (Song) -> Unit) {
+        Logger.d("setOnItemClickListener $listener")
         onItemClickListener = listener
     }
 
     override fun getItemCount(): Int {
+        Logger.d("getItemCount ${songs.size}")
         return songs.size
     }
 
