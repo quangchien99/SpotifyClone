@@ -4,15 +4,11 @@
 package com.example.spotifyclone.adapter
 
 import androidx.recyclerview.widget.AsyncListDiffer
-import com.bumptech.glide.RequestManager
 import com.example.spotifyclone.R
 import com.example.spotifyclone.data.entities.Song
 import kotlinx.android.synthetic.main.item_song.view.*
-import javax.inject.Inject
 
-class SongAdapter @Inject constructor(
-    private val glide: RequestManager
-) : BaseSongAdapter(
+class SwipeSongAdapter : BaseSongAdapter(
     R.layout.item_song
 ) {
 
@@ -21,9 +17,8 @@ class SongAdapter @Inject constructor(
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
         val song = songs[position]
         holder.itemView.apply {
-            tvSongTitle.text = song.title
-            tvSongAuthor.text = song.author
-            glide.load(song.imageUrl).into(ivSongImage)
+            val text = "${song.title} - ${song.author}"
+            tvSongTitle.text = text
 
             setOnClickListener {
                 onItemClickListener?.let { click ->
