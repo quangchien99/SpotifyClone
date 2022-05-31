@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import com.example.spotifyclone.R
 import com.example.spotifyclone.data.entities.Song
 import kotlinx.android.synthetic.main.item_song.view.*
+import kotlinx.android.synthetic.main.item_swipe_song.view.*
+import javax.inject.Inject
 
-class SwipeSongAdapter : BaseSongAdapter(
-    R.layout.item_song
+class SwipeSongAdapter @Inject constructor() : BaseSongAdapter(
+    R.layout.item_swipe_song
 ) {
 
     override val differ: AsyncListDiffer<Song> = AsyncListDiffer(this, diffCallback)
@@ -18,7 +20,7 @@ class SwipeSongAdapter : BaseSongAdapter(
         val song = songs[position]
         holder.itemView.apply {
             val text = "${song.title} - ${song.author}"
-            tvSongTitle.text = text
+            tvPrimary.text = text
 
             setOnClickListener {
                 onItemClickListener?.let { click ->
