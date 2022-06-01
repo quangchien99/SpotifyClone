@@ -4,16 +4,20 @@
 package com.example.spotifyclone.ui
 
 import android.os.Bundle
+import android.support.v4.media.session.PlaybackStateCompat
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.RequestManager
 import com.example.spotifyclone.R
 import com.example.spotifyclone.adapter.SwipeSongAdapter
 import com.example.spotifyclone.data.entities.Song
+import com.example.spotifyclone.exoplayer.isPlaying
 import com.example.spotifyclone.exoplayer.toSong
 import com.example.spotifyclone.logger.Logger
 import com.example.spotifyclone.ui.viewmodels.MainViewModel
 import com.example.spotifyclone.utils.Status
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -31,12 +35,30 @@ class MainActivity : AppCompatActivity() {
 
     private var currentPlayingSong: Song? = null
 
+    private var playbackState: PlaybackStateCompat? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         subscribeToObserver()
         vpSong.adapter = swipeSongAdapter
+        vpSong.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                if (playbackState?.isPlaying == true) {
+                    mainViewModel.playOrToggleSong(swipeSongAdapter.songs[position])
+                } else {
+                    currentPlayingSong = swipeSongAdapter.songs[position]
+                }
+            }
+        })
+
+        ivPlayPause.setOnClickListener {
+            currentPlayingSong?.let {
+                mainViewModel.playOrToggleSong(it, true)
+            }
+        }
     }
 
     private fun switchViewPagerToCurrentSong(song: Song) {
@@ -74,10 +96,47 @@ class MainActivity : AppCompatActivity() {
             }
         }
         mainViewModel.currentPlayingSong.observe(this) {
+            Logger.d("Current song: $it")
             if (it == null) return@observe
             currentPlayingSong = it.toSong()
             glide.load(currentPlayingSong?.imageUrl).into(ivCurSongImage)
             switchViewPagerToCurrentSong(currentPlayingSong ?: return@observe)
+        }
+
+        mainViewModel.playbackState.observe(this) {
+            Logger.d("Current playback state: $it")
+            playbackState = it
+            ivPlayPause.setImageResource(
+                if (playbackState?.isPlaying == true) R.drawable.ic_pause else R.drawable.ic_play
+            )
+        }
+
+        mainViewModel.isConnected.observe(this) {
+            Logger.d("Current is connected: $it")
+            it?.getContentIfNotHandled()?.let { result ->
+                when (result.status) {
+                    Status.ERROR -> Snackbar.make(
+                        rootLayout,
+                        result.message ?: "An unknown error happened",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                    else -> Unit
+                }
+            }
+        }
+
+        mainViewModel.networkError.observe(this) {
+            Logger.d("networkError: $it")
+            it?.getContentIfNotHandled()?.let { result ->
+                when (result.status) {
+                    Status.ERROR -> Snackbar.make(
+                        rootLayout,
+                        result.message ?: "An unknown error happened",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                    else -> Unit
+                }
+            }
         }
     }
 
