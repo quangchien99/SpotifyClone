@@ -21,7 +21,7 @@ class SwipeSongAdapter @Inject constructor() : BaseSongAdapter(
         holder.itemView.apply {
             val text = "${song.title} - ${song.author}"
             tvPrimary.text = text
-
+            tvPrimary.isSelected = true
             setOnClickListener {
                 onItemClickListener?.let { click ->
                     click(song)
