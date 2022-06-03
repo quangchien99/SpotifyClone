@@ -67,7 +67,6 @@
         android:layout_width="@dimen/width_80dp"
         android:layout_height="@dimen/height_80dp"
         android:layout_marginTop="@dimen/margin_32dp"
-        android:background="@drawable/ic_play"
         android:src="@drawable/ic_play"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -79,7 +78,7 @@
         android:layout_width="@dimen/width_56dp"
         android:layout_height="@dimen/height_56dp"
         android:layout_marginEnd="@dimen/margin_16dp"
-        android:src="@drawable/ic_skip"
+        android:src="@drawable/ic_previous"
         app:layout_constraintBottom_toBottomOf="@+id/ivPlayPauseDetail"
         app:layout_constraintEnd_toStartOf="@+id/ivPlayPauseDetail"
         app:layout_constraintTop_toTopOf="@+id/ivPlayPauseDetail" />

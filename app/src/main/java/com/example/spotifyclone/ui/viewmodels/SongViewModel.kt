@@ -32,6 +32,7 @@ class SongViewModel @Inject constructor(
     init {
         updateCurrentPlayerPosition()
     }
+
     private fun updateCurrentPlayerPosition() {
         viewModelScope.launch {
             while (true) {

@@ -17,6 +17,7 @@ import com.example.spotifyclone.exoplayer.callbacks.SongPlayerNotificationListen
 import com.example.spotifyclone.logger.Logger
 import com.example.spotifyclone.utils.Constants.MEDIA_ROOT_ID
 import com.example.spotifyclone.utils.Constants.NETWORK_ERROR
+import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
@@ -95,7 +96,9 @@ class SongService : MediaBrowserServiceCompat() {
             mediaSession.sessionToken,
             SongPlayerNotificationListener(this)
         ) {
-            currentSongDuration = exoPlayer.duration
+            if (exoPlayer.duration != C.TIME_UNSET){
+                currentSongDuration = exoPlayer.duration
+            }
         }
 
         val songPlaybackPreparer = SongPlaybackPreparer(fireBaseSongSource) {
